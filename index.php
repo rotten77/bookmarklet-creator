@@ -28,7 +28,7 @@
 				<div class="control-group col-md-12">
 					<label for="name">Name</label>
 					<input type="text" class="form-control input-lg" id="name" placeholder="Bookmarklet name" />
-					<p class="text-info">&hellip;or use <a href="javascript:void(function(){ wLeft = window.screenLeft ? window.screenLeft : window.screenX; wTop = window.screenTop ? window.screenTop : window.screenY; var w = 960; var h = 500; var t = wTop + (window.innerHeight / 2) - (h / 2); var l = wLeft + (window.innerWidth / 2) - (w / 2); var win = window.open('http://copypastecharacter.com/','eTgLn','width='+w+',height='+h+',top='+t+',left='+l+',location=no,personalbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes');})();﻿"><strong>special character</strong></a></p>
+					<p class="text-info">&hellip;or use <a href="javascript:void(function(){ wLeft = window.screenLeft ? window.screenLeft : window.screenX; wTop = window.screenTop ? window.screenTop : window.screenY; var w = 960; var h = 500; var t = wTop + (window.innerHeight / 2) - (h / 2); var l = wLeft + (window.innerWidth / 2) - (w / 2); var win = window.open('http://copypastecharacter.com/','copypastewindow','width='+w+',height='+h+',top='+t+',left='+l+',location=no,personalbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes');})();﻿"><strong>special character</strong></a></p>
 					
 				</div>
 
@@ -67,12 +67,12 @@
 <script>
 $(function(){
 
-	function makeid() {
+	function makeid(url,w,h) {
 		// http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
 		var text = "";
 		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		for( var i=0; i < 5; i++ ) text += possible.charAt(Math.floor(Math.random() * possible.length));
-	    return text;
+	    return text+"-"+(url.length)+"-"+w+"-"+h;
 	}
 
 	$('input').change(function(){
@@ -84,7 +84,7 @@ $(function(){
 		if(width>1 && height>1 && url!="" && name!="") $('#result').show();
 		else $('#result').hide();
 
-		var bookmarklet = "javascript:void(function(){ wLeft = window.screenLeft ? window.screenLeft : window.screenX; wTop = window.screenTop ? window.screenTop : window.screenY; var w = "+width+"; var h = "+height+"; var t = wTop + (window.innerHeight / 2) - (h / 2); var l = wLeft + (window.innerWidth / 2) - (w / 2); var win = window.open('"+url+"','"+makeid()+"','width='+w+',height='+h+',top='+t+',left='+l+',location=no,personalbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes');})();﻿";
+		var bookmarklet = "javascript:void(function(){ wLeft = window.screenLeft ? window.screenLeft : window.screenX; wTop = window.screenTop ? window.screenTop : window.screenY; var w = "+width+"; var h = "+height+"; var t = wTop + (window.innerHeight / 2) - (h / 2); var l = wLeft + (window.innerWidth / 2) - (w / 2); var win = window.open('"+url+"','"+makeid(url,width,height)+"','width='+w+',height='+h+',top='+t+',left='+l+',location=no,personalbar=no,menubar=no,status=no,resizable=yes,scrollbars=yes');})();﻿";
 
 		$('#bm-btn').text(name);
 		$('#bm-btn').attr("href", bookmarklet);
